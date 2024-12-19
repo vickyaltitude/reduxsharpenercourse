@@ -1,22 +1,27 @@
 import classes from './Counter.module.css';
 import { useSelector,useDispatch } from 'react-redux';
+import { counterSliceAction } from '../store/index';
 
 const Counter = () => {
 
-  const counter = useSelector(state => state.count);
-  const showToggler = useSelector(state => state.showCount)
+  const counter = useSelector(state => state.counter.count);
+  const showToggler = useSelector(state => state.counter.showCount)
   const dispatch = useDispatch();
-  const toggleCounterHandler = () => {dispatch({type: 'toggle'})};
+  const toggleCounterHandler = () => {
+    
+    dispatch(counterSliceAction.showToggler())
+  
+  };
 
   function useIncrement(){
-     dispatch({type: 'increment'})
+     dispatch(counterSliceAction.increment())
   }
 
   function useDecrement(){
-    dispatch({type: 'decrement'})
+    dispatch(counterSliceAction.decrement())
   }
   function increase(){
-    dispatch({type: 'increase',amount: 10})
+    dispatch(counterSliceAction.increase(10))
  }
   
   return (

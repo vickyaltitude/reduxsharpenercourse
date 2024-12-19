@@ -8,26 +8,45 @@ const counterSlice = createSlice({
     initialState,
     reducers:{
         increment(state){
-             state.count++ 
+             state.count = state.count + 5 
             },
         increase(state,action){
-            state.count = state.count + action.amount
+            state.count = state.count + action.payload
         },
         decrement(state){
-            state.count--
+            state.count = state.count - 5 
         },
-        toggle(state){
+        showToggler(state){
+          
              state.showCount = !state.showCount
         } 
     }
 })
 
+const isAuthenticated = {
+    userAuthenticated: false
+}
 
 
+const userAuth = createSlice({
+    name: 'auth',
+    initialState: isAuthenticated,
+    reducers:{
+        login(state){
+            state.userAuthenticated = true
+        },
+        logout(state){
+            state.userAuthenticated = false
+        }
+    }
+})
 
 
 const store = configureStore({
-    counter : counterSlice.reducer
+    reducer : { counter : counterSlice.reducer , auth: userAuth.reducer}
 });
 
+
+export const counterSliceAction = counterSlice.actions;
+export const userAuthAction = userAuth.actions;
 export default store;
